@@ -22,8 +22,20 @@ export function buildAffiliateUrl(rawUrl: string, marketplaceSlug?: string): str
       return url.toString();
     }
 
-    // 2. Already an EarnKaro link
-    if (host.includes('ekaro.in') || host.includes('earnkaro.com')) {
+    // 2. Already an affiliate / EarnKaro / Meesho Invite / Onelink / Tagged Link
+    if (
+      host.includes('ekaro.in') ||
+      host.includes('earnkaro.com') ||
+      host.includes('onelink.me') ||
+      url.pathname.includes('/af_invite') ||
+      url.searchParams.has('ext_id') ||
+      url.searchParams.has('p_id') ||
+      url.searchParams.has('aff_id') ||
+      url.searchParams.has('subid') ||
+      url.searchParams.has('ref') ||
+      url.searchParams.has('utm_source')
+    ) {
+      // Preserve the user's direct affiliate/referral tracking URL completely
       return trimmed;
     }
 
@@ -39,14 +51,14 @@ export function buildAffiliateUrl(rawUrl: string, marketplaceSlug?: string): str
       marketplaceSlug === 'meesho' ||
       marketplaceSlug === 'shopsy'
     ) {
-      // Clean query trackers before wrapping
+      // Clean query trackers before wrapping standard untracked store links
       const cleanUrl = `${url.origin}${url.pathname}`;
       return `https://ekaro.in/enkr?id=${DEFAULT_EARNKARO_ID}&url=${encodeURIComponent(cleanUrl)}`;
     }
 
     // Return original url if unsupported
     return trimmed;
-  } catch (err) {
+  } catch {
     // If invalid URL format, return raw string
     return trimmed;
   }

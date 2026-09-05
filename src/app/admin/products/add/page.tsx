@@ -141,8 +141,8 @@ export default function AddProductPage() {
     },
     {
       store: 'Meesho',
-      name: 'Parachute Pants',
-      url: 'https://www.meesho.com/s/p/cargo-parachute-pants'
+      name: 'Dragon Streetwear Tee',
+      url: 'https://www.meesho.com/af_invite/264029691:facebook:9918905?p_id=994867610&ext_id=ggbgre&utm_source=facebook'
     }
   ];
 

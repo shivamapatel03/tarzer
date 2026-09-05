@@ -47,17 +47,32 @@ export const metadata: Metadata = {
   }
 };
 
-export default function RootLayout({
+import { headers } from 'next/headers';
+
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const headerList = await headers();
+  const rawHost = headerList.get('x-forwarded-host') || headerList.get('host') || '';
+  const host = rawHost.toLowerCase().split(':')[0].trim();
+  const isAdminHeader = headerList.get('x-is-admin-host') === '1';
+  const isAdminSubdomain =
+    isAdminHeader ||
+    host.startsWith('admin.') ||
+    host.startsWith('admin-') ||
+    host === 'admin.tarzer.shop';
+
   const initialBuildingMode = db.getSetting('building_mode', 'false') === 'true';
 
   return (
     <html lang="en" className="h-full scroll-smooth" suppressHydrationWarning>
       <body suppressHydrationWarning className="min-h-full flex flex-col bg-white text-[#111111] antialiased selection:bg-[#FF6A00] selection:text-white">
-        <ClientRootWrapper initialBuildingMode={initialBuildingMode}>
+        <ClientRootWrapper 
+          initialBuildingMode={initialBuildingMode}
+          isAdminSubdomain={isAdminSubdomain}
+        >
           {children}
         </ClientRootWrapper>
       </body>

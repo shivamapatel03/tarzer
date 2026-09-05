@@ -10,17 +10,28 @@ import BuildingModeView from '@/components/ui/BuildingModeView';
 interface ClientRootWrapperProps {
   children: React.ReactNode;
   initialBuildingMode: boolean;
+  isAdminSubdomain?: boolean;
 }
 
 export default function ClientRootWrapper({
   children,
   initialBuildingMode,
+  isAdminSubdomain = false,
 }: ClientRootWrapperProps) {
   const pathname = usePathname();
   const [buildingMode, setBuildingMode] = useState(initialBuildingMode);
-  const [adminBypass, setAdminBypass] = useState(false);
+  const [clientIsAdminHost, setClientIsAdminHost] = useState(isAdminSubdomain);
 
-  // Periodic poll or check on mount to ensure instant update when toggled in admin panel
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const h = window.location.hostname.toLowerCase().split(':')[0].trim();
+      if (h.startsWith('admin.') || h.startsWith('admin-') || h === 'admin.tarzer.shop') {
+        setClientIsAdminHost(true);
+      }
+    }
+  }, []);
+
+  // Periodic poll to ensure instant update when toggled in admin panel
   useEffect(() => {
     async function checkStatus() {
       try {
@@ -39,15 +50,20 @@ export default function ClientRootWrapper({
     return () => clearInterval(interval);
   }, []);
 
-  // Admin routes and API routes MUST NEVER be blocked
-  const isAdminRoute = pathname?.startsWith('/admin') || pathname?.startsWith('/api');
+  // Admin subdomain, admin routes, and API routes MUST NEVER show Building Mode
+  const isAnyAdmin =
+    isAdminSubdomain ||
+    clientIsAdminHost ||
+    pathname?.startsWith('/admin') ||
+    pathname?.startsWith('/api') ||
+    pathname?.startsWith('/login');
 
-  if (isAdminRoute) {
+  if (isAnyAdmin) {
     return <>{children}</>;
   }
 
-  // If Building Mode is active and not bypassed
-  if (buildingMode && !adminBypass) {
+  // If Building Mode is active on public domain
+  if (buildingMode) {
     return (
       <>
         <BuildingModeView />

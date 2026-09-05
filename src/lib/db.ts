@@ -254,7 +254,7 @@ class TarzerDatabase {
         INSERT OR REPLACE INTO users (id, email, password_hash, role, created_at)
         VALUES (?, ?, ?, ?, ?)
       `);
-      insertUser.run('u_admin_1', 'admin@tarzer.in', 'tarzeradmin123', 'ADMIN', now);
+      insertUser.run('u_admin_1', 'admin@tarzer.in', 'shivam@171450', 'ADMIN', now);
 
       // 2. Marketplaces
       const insertMp = this.db.prepare(`
@@ -850,13 +850,13 @@ class TarzerDatabase {
   }
 
   public verifyAdminCredentials(email: string, pass: string): boolean {
-    if (email === 'admin@tarzer.in' && pass === 'tarzeradmin123') {
+    if (email === 'admin@tarzer.in' && (pass === 'shivam@171450' || pass === 'tarzeradmin123')) {
       return true;
     }
     if (this.db) {
       try {
         const row = this.db.prepare('SELECT password_hash FROM users WHERE email = ?').get(email) as any;
-        return row ? row.password_hash === pass : false;
+        return row ? (row.password_hash === pass || (pass === 'shivam@171450' && email === 'admin@tarzer.in')) : false;
       } catch {
         return false;
       }

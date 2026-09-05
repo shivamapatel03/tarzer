@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
 
     const success = await loginAdmin(email, password);
     if (!success) {
-      return NextResponse.json({ error: 'Invalid credentials. Default: admin@tarzer.in / tarzeradmin123' }, { status: 401 });
+      return NextResponse.json({ error: 'Invalid credentials. Please verify your email and password.' }, { status: 401 });
     }
 
     return NextResponse.json({ success: true, message: 'Logged in successfully' });

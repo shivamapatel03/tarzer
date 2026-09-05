@@ -9,7 +9,7 @@ import { Lock, Mail, ArrowRight, ShieldCheck, ArrowLeft, RefreshCw, KeyRound } f
 export default function AdminLoginPage() {
   const router = useRouter();
   const [email, setEmail] = useState('admin@tarzer.in');
-  const [password, setPassword] = useState('tarzeradmin123');
+  const [password, setPassword] = useState('shivam@171450');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -41,7 +41,7 @@ export default function AdminLoginPage() {
 
   const handleQuickFill = () => {
     setEmail('admin@tarzer.in');
-    setPassword('tarzeradmin123');
+    setPassword('shivam@171450');
     setError('');
   };
 
@@ -146,7 +146,7 @@ export default function AdminLoginPage() {
               <div className="flex items-center gap-1.5 text-white/80 font-bold text-[10px]">
                 <ShieldCheck className="w-3.5 h-3.5 text-[#FF6A00]" /> DEFAULT CREDENTIALS:
               </div>
-              <p className="text-[10px] text-white/60">admin@tarzer.in / tarzeradmin123</p>
+              <p className="text-[10px] text-white/60">admin@tarzer.in / shivam@171450</p>
             </div>
 
             <button

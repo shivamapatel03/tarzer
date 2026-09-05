@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="100%" height="100%">
+  <!-- Orange Background -->
+  <rect width="512" height="512" fill="#FF6A00" rx="0" />
+  
+  <!-- Pixel Brand Glyphs in White -->
+  <g fill="#FFFFFF">
+    <!-- Left Column: Stylized T & Z block structure -->
+    <!-- Top T bar -->
+    <rect x="106" y="142" width="85" height="28" />
+    <rect x="134" y="170" width="28" height="85" />
+    <rect x="106" y="255" width="85" height="28" />
+    <!-- Bottom L / corner -->
+    <rect x="106" y="311" width="28" height="56" />
+    <rect x="134" y="339" width="57" height="28" />
+    
+    <!-- Middle Column: 'a' / 'r' glyphs -->
+    <rect x="236" y="170" width="57" height="57" />
+    <!-- Hollow center inside 'a' -->
+    <rect x="254" y="188" width="21" height="21" fill="#FF6A00" />
+    
+    <!-- Bottom middle 'c' / 'e' steps -->
+    <rect x="236" y="283" width="28" height="84" />
+    <rect x="264" y="311" width="57" height="28" />
+    <rect x="293" y="339" width="28" height="28" />
+    
+    <!-- Right Column: 'r' / 'e' / 'r' -->
+    <rect x="312" y="170" width="85" height="28" />
+    <rect x="340" y="198" width="28" height="57" />
+    
+    <rect x="312" y="283" width="85" height="28" />
+    <rect x="340" y="311" width="28" height="56" />
+  </g>
+</svg>
